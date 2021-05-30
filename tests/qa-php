@@ -1,0 +1,25 @@
+#!/bin/bash
+
+source ../bin/config-shared.bash
+
+QA_STARTTIME=$(date +%s)
+
+{ # try
+  _script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+
+  # shellcheck disable=SC2048
+  (cd "$_script_dir" && php ../vendor/bin/codecept run --config=./_config/codeception.yml --steps $*)
+} || { #catch
+  echo 'Error with run. Inspect output in _output directory'
+}
+
+if [[ -z $CC_SILENT ]]; then
+  QA_ENDTIME=$(date +%s)
+  echo "It took $(($QA_ENDTIME - $QA_STARTTIME)) seconds to complete."
+
+  separator
+  echo 'Tests were run with command:'
+
+  # shellcheck disable=SC2048
+  echo php ../vendor/bin/codecept run --config=./_config/codeception.yml --steps $*
+fi

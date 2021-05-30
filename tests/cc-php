@@ -1,0 +1,32 @@
+#!/bin/bash
+
+source ../bin/config-shared.bash
+
+# Script: cc-php
+# Runs a codeception PHP command.
+#
+# Codeception supports different test-formats:
+#
+# generate:cest suite filename       - Generates a sample Cest test
+# generate:test suite filename       - Generates a sample PHPUnit Test with Codeception hooks
+# generate:feature suite filename    - Generates Gherkin feature file
+# generate:suite suite actor         - Generates a new suite with the given Actor class name
+# generate:scenarios suite           - Generates text files containing scenarios from tests
+# generate:helper filename           - Generates a sample Helper File
+# generate:pageobject suite filename - Generates a sample Page object
+# generate:stepobject suite filename - Generates a sample Step object
+# generate:environment env           - Generates a sample Environment configuration
+# generate:groupobject group         - Generates a sample Group Extension
+
+# cc-php clean   - cleans the _output directory
+
+if [ ! -d ../vendor ] || [ ! -f ../vendor/bin/codecept ]; then
+  show_fail "Please set up the test environment with install-wp-tests.sh"
+fi
+
+if [[ -n $* ]]; then
+  _script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+
+  # shellcheck disable=SC2048
+  (cd "$_script_dir" && php ../vendor/bin/codecept --config=./_config/codeception.yml $*)
+fi

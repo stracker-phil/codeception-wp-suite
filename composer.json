@@ -1,0 +1,15 @@
+{
+  "name": "divimode/plugin-name",
+  "description": "",
+  "require-dev": {
+    "codeception/codeception": "^4.1",
+    "codeception/module-asserts": "^1.0.0",
+    "codeception/module-phpbrowser": "^1.0.0",
+    "codeception/module-webdriver": "^1.2",
+    "codeception/module-db": "^1.1",
+    "codeception/module-filesystem": "^1.0",
+    "codeception/module-cli": "^1.1",
+    "codeception/util-universalframework": "^1.0",
+    "lucatume/wp-browser": "^3.0"
+  }
+}
